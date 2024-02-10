@@ -1,10 +1,13 @@
 import os
 from openai import OpenAI
+from dotenv import load_dotenv
 
-api_key = os.getenv('OPENAI_API_KEY')
+load_dotenv()
+
+API_KEY = os.getenv('OPENAI_API_KEY')
 
 client = OpenAI(
-  api_key=api_key
+  api_key=API_KEY
 )
 
 history = []
