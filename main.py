@@ -7,17 +7,21 @@ client = OpenAI(
   api_key=api_key
 )
 
+history = []
+
 def ask(question):
+  question_msg = {
+    'role': 'user',
+    'content': question,
+  }
+  history.append(question_msg)
   response = client.chat.completions.create(
-    messages=[
-      {
-          'role': 'user',
-          'content': question,
-      }
-    ],
+    messages=history,
     model='gpt-3.5-turbo',
   )
-  return response.choices[0].message.content
+  answer_msg = response.choices[0].message
+  history.append(answer_msg)
+  return answer_msg.content
 
 while(True):
   question = input("Question: ")
