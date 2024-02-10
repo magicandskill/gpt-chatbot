@@ -7,14 +7,25 @@ client = OpenAI(
   api_key=api_key
 )
 
-response = client.chat.completions.create(
-  messages=[
-    {
-      "role": "user",
-      "content": "what is programming?",
-    }
-  ],
-  model="gpt-3.5-turbo",
-)
+def ask(question):
+  response = client.chat.completions.create(
+    messages=[
+      {
+          'role': 'user',
+          'content': question,
+      }
+    ],
+    model='gpt-3.5-turbo',
+  )
+  return response.choices[0].message.content
 
-print(response)
+while(True):
+  question = input("Question: ")
+  if(question.strip() == ''):
+    break
+  answer = ask(question)
+  print('\n')
+  print(f"Answer: {answer}")
+  print('\n')
+
+print("Bye.")
