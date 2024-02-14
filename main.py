@@ -11,6 +11,11 @@ client = OpenAI(
 )
 
 history = []
+system_msg = {
+  "role": "system",
+  "content": "respond as if you're explaining things to a five-year-old child"
+}
+history.append(system_msg)
 
 def ask(question):
   question_msg = {
@@ -27,12 +32,12 @@ def ask(question):
   return answer_msg.content
 
 while(True):
-  question = input("Question: ")
+  question = input("You: ")
   if(question.strip() == ''):
     break
   answer = ask(question)
   print('\n')
-  print(f"Answer: {answer}")
+  print(f"Bot: {answer}")
   print('\n')
 
 print("Bye.")
