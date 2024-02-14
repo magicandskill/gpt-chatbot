@@ -1,7 +1,7 @@
 import os
 import google.generativeai as genai
 from dotenv import load_dotenv
-
+ 
 load_dotenv()
 
 API_KEY = os.getenv('GEMINI_API_KEY')
@@ -12,14 +12,16 @@ genai.configure(
 
 model = genai.GenerativeModel('gemini-pro')
 chat = model.start_chat(history=[])
+instruction = "In this chat, respond as if you're explaining things to a five-year-old child. "
 
 while(True):
-  question = input("Question: ")
+  question = input("You: ")
+
   if(question.strip() == ''):
     break
-  response = chat.send_message(question)
-  print('\n')
-  print(f"Answer: {response.text}")
-  print('\n')
 
-print("Bye.")
+  response = chat.send_message(instruction + question)
+  print('\n')
+  print(f"Bot: {response.text}")
+  print('\n')
+  instruction = ''
